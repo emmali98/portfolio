@@ -1,18 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+`;
+
+const Link = styled.div`
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${props => props.focused ? 'black' : 'palevioletred'};
+  cursor: default;
+`;
 
 const Sidebar = ({ focused, changeFocus }) => {
   const handleClick = (e) => {
     changeFocus(e.target.id);
-    console.log(focused);
   }
 
+  const links = ['about', 'coding', 'animation', 'contact'];
+
   return (
-    <div onClick={handleClick}>
-      <div id="about">About</div>
-      <div id="coding">Coding</div>
-      <div id="animation">Animation</div>
-      <div id="contact">Contact</div>
-    </div>
+    <Wrapper onClick={handleClick}>
+    {links.map((link) =>
+      <Link
+        focused={link === focused}
+        id={link}
+        key={link}>
+      {link}</Link>)}
+    </Wrapper>
   )
 }
 
